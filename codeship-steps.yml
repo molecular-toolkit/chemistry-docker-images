@@ -1,0 +1,3 @@
+ - name: build-all
+   service: docker-make
+   command: docker-make -f makefiles/DockerMake.yml --all

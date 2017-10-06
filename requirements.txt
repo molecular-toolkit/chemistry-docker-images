@@ -1,0 +1,1 @@
+dockermake >= 0.6.0rc2
