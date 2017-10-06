@@ -1,0 +1,11 @@
+docker_makefiles
+dockerfile.fail
+_docker_make_tmp
+.idea
+tokens
+codeship.aes
+tmp
+*.bak
+*~
+\#*
+
