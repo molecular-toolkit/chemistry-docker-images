@@ -4,7 +4,7 @@ This repository stores definitions for building docker images for various open s
 
 
 # Using these images
-These images are automatically built and pushed to [DockerHub](http://hub.docker.com), and can be bulled from [TBA].
+These images are automatically built and pushed to [DockerHub](http://hub.docker.com), and can be pulled from [TBA].
 
 ### Creating new images
 Note: to use these images, we highly recommend simply pulling them from DockerHub (see above); it's only necessary to build them yourself if you want to make modifications.

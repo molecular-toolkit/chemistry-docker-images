@@ -1,3 +1,9 @@
- - name: build-all
-   service: docker-make
-   command: docker-make -f makefiles/DockerMake.yml --all
+- name: build-all
+  service: docker-make
+  command: docker-make -f makefiles/DockerMake.yml --all
+
+- name: publish
+  service: publisher
+  # matches tags that are valid PEP440 versions
+  tag: '^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)((a|rc|b)(0|[1-9]\d*))?$'
+  command: deployment/push.sh
