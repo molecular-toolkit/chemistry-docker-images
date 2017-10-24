@@ -1,3 +1,5 @@
+#!/bin/bash
+
 docker-make -f makefiles/DockerMake.yml \
             --repo docker.io/chemdocker \
             --tag ${CI_BRANCH} \
