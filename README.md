@@ -1,10 +1,12 @@
 # Computational Chemistry Docker Images
 
+[ ![Codeship Status for molecular-toolkit/chemistry-docker-images](https://app.codeship.com/projects/cabf3b40-8d0a-0135-07c8-724a96aff59c/status?branch=master)](https://app.codeship.com/projects/249637)
+
 This repository stores definitions for building docker images for various open source computational chemistry packages.  These images are built from definitions contained in the DockerMakefiles in this directory (everythign with a `.yml` extension), and should be built with the [`DockerMake` program](https://github.com/avirshup/DockerMake).
 
 
 # Using these images
-These images are automatically built and pushed to [DockerHub](http://hub.docker.com), and can be pulled from [TBA].
+These images are automatically built and pushed to [DockerHub](http://hub.docker.com). The images are pushed to dockerhub - https://hub.docker.com/u/chemdocker/ and can be run at the command line with `docker run -it chemdocker[image-name]:[version] bash`.
 
 ### Creating new images
 Note: to use these images, we highly recommend simply pulling them from DockerHub (see above); it's only necessary to build them yourself if you want to make modifications.
