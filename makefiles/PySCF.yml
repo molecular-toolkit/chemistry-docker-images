@@ -1,4 +1,4 @@
-pyscf_dependencies:
+pyscf-dependencies:
   build: |
     RUN apt-get update \
      && apt-get install -y --no-install-recommends \
@@ -8,10 +8,10 @@ pyscf_dependencies:
      && cleanapt
 
 
-pyscf_build:
+pyscf-build-1.3.1:
  requires:
   - buildbase
-  - pyscf_dependencies
+  - pyscf-dependencies
  build: |
   RUN apt-get install -y \
     cmake \
@@ -35,26 +35,30 @@ pyscf_build:
    && cp -r /opt/shared_libs/lib /opt/shared_libs/py3/lib  # this is a hack for silly reasons
 
 
-pyscf_deploy:
+pyscf-deploy:
   requires:
     - deploy_requirements
-    - pyscf_dependencies
+    - pyscf-dependencies
   build: |
     RUN conda install h5py
     ENV LD_LIBRARY_PATH=/opt/conda/lib/python3.6/site-packages/pyscf/lib:/opt/conda/lib/python2.7/site-packages/pyscf/lib
     RUN pip install git+https://github.com/sunqm/pyscf@v1.3.1
     # note that the version here needs to be the same as the build version above
   copy_from:
-    pyscf_build:  # probably better to install in one location, obvs, but this will have to do for now
+    pyscf-build-1.3.1:  # probably better to install in one location, obvs, but this will have to do for now
       /opt/shared_libs/lib: /opt/conda/lib/python3.6/site-packages/pyscf
       /opt/shared_libs/py3/lib: /opt/conda/lib/python2.7/site-packages/pyscf
 
-pyscf_py2:
+pyscf-1.3.1-py27:
   requires:
-    - pyscf_deploy
+    - pyscf-deploy
     - miniconda2
+
+pyscf-1.3.1:
+  requires:
+    - pyscf-deploy
+    - miniconda
 
 pyscf:
   requires:
-    - pyscf_deploy
-    - miniconda
+    - pyscf-1.3.1

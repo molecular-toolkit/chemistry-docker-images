@@ -1,30 +1,33 @@
-opsin:
+opsin-2.1.0:
   requires:
     - python_deploy_base
   description: IUPAC nomenclature parser, see doi:10.1021/ci100384d
   build: |
     RUN conda install -qy -c bioconda opsin=2.1.0
 
-
-ambertools:
+opsin:
   requires:
-    - miniconda
+    - opsin-2.1.0:
+
+ambertools-16:
+  requires:
+    - deploybase
   build: |
     RUN apt-get update \
-     && apt-get install --no-install-recommends -y libgfortran3 \
-     && apt-get -y clean && apt-get autoremove -y --purge && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+     && apt-get install --no-install-recommends -y \
+        gcc                                        \
+        gfortran                                   \
+        libfftw3-dev                               \
+        libgfortran3                               \
+        libnetcdf-dev
+     && cleanapt
     RUN python -c "print('name = molecular-design-toolkit-builder\ninstitution = Autodesk\ncity = San Francisco\nstate or province = CA\ncountry = USA')" > /root/.amberrc
     RUN conda install -qy -c ambermd ambertools=16.21.1
     ENV AMBERHOME=/opt/conda/
 
-nucleic_acid_builder:
+ambertools:
   requires:
-   - ambertools
-  build: |
-    RUN apt-get update \
-     && apt-get install --no-install-recommends -y gcc gfortran libfftw3-dev libnetcdf-dev \
-     && apt-get -y clean && apt-get autoremove -y --purge && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
+    - ambertools-16
 
 dssp:
   requires:
