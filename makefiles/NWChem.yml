@@ -21,7 +21,7 @@ nwchem_requirements:
         PATH=$PATH:${NWCHEM_TOP}/bin/LINUX64
 
 
-nwchem_build:
+nwchem-build-6.6:
  requires:
   - openblas
   - nwchem_requirements
@@ -74,8 +74,7 @@ nwchem_build:
         && cd nwapi                                         \
         && make -f makefile.linux                           \
         && python test.py                                   \
-        && python setup.py install                          \
-        && pip install pint
+        && python setup.py install
 
 nwchem-6.6:
   description: Deployable NWChem image
@@ -86,7 +85,7 @@ nwchem-6.6:
   build: |
     ENV NWCHEM_EXECUTABLE=$NWCHEM_TOP/bin/LINUX64/nwchem
   copy_from:
-    nwchem_build:
+    nwchem-build-6.6:
       /usr/local/lib/python2.7/dist-packages: /usr/local/lib/python2.7/
       /opt/nwchem-6.6: /opt
       /opt/lib: /opt
@@ -96,7 +95,7 @@ nwchem-6.6:
 
 nwchem-6.6-jsonwrapper:
   requires:
-    - nwchem
+    - nwchem-6.6
   build: |
     RUN pip install pint cclib
     ENV NWCHEMFILE="6.6-patch10.17"        \

@@ -11,7 +11,7 @@ _ALL_:
   - ambertools
   - ambertools-16
   - opsin
-  - opsin-2.0.1
+  - opsin-2.1.0
   - symmol
   - nwchem
   - nwchem-6.6
