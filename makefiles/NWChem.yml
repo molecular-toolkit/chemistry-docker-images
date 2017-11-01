@@ -61,19 +61,20 @@ nwchem-build-6.6:
            stat=$?;                                  \
            if [ $stat -ne 0 ] ; then exit $stat; fi; \
         done
-    RUN  cd src                \
-         && make nwchem_config \
-         && make -j 4 &> make_nwchem.log; \
-         exitcode=$?; \
-         if [ $exitcode -ne 0 ]; then \
-             tail -n 5000 make_nwchem.log; \
-             exit $exitcode; \
-         fi
-    RUN cd contrib                                                     \
-        && svn co https://svn.pnl.gov/svn/nwchem/trunk/contrib/mov2asc \
-        && cd mov2asc                                                  \
-        && FC=gfortran make \                                          \
-        && mv mov2asc asc2mov ${NWCHEM_TOP}/bin/LINUX64
+    WORKDIR /opt/nwchem-6.6/src
+    RUN make nwchem_config
+    RUN echo "Full output in ${PWD}/make_nwchem.log"               \
+     && bash -c "make -j 4 |& tee make_nwchem.log | grep -i make"  \
+        exitcode=$?;                                               \
+        if [ $exitcode -ne 0 ]; then                               \
+            tail -n 5000 make_nwchem.log;                          \
+            exit $exitcode;                                        \
+        fi
+    WORKDIR /opt/nwchem-6.6/contrib
+    RUN svn co https://svn.pnl.gov/svn/nwchem/trunk/contrib/mov2asc    \
+     && cd mov2asc                                                     \
+     && FC=gfortran make                                               \
+     && mv mov2asc asc2mov ${NWCHEM_TOP}/bin/LINUX64
     WORKDIR /opt
     RUN git clone https://github.com/NWChem-Python/nwapi    \
         && cd nwapi                                         \

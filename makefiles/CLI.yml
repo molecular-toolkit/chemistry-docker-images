@@ -45,7 +45,7 @@ edtsurf:
       RUN apt-get update \
       && apt-get install -y --no-install-recommends wget \
       && cd /usr/local/bin \
-      && wget http://zhanglab.ccmb.med.umich.edu/EDTSurf/EDTSurf \
+      && wget --nv --trust-server-names http://zhanglab.ccmb.med.umich.edu/EDTSurf/EDTSurf \
       && chmod +x EDTSurf \
       && apt-get -y clean \
       && apt-get autoremove -y --purge \

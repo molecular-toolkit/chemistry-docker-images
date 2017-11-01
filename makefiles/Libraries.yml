@@ -6,7 +6,7 @@ openblas:
   build: |
     WORKDIR     /opt
     RUN         mkdir -p /opt/lib/ \
-                   && wget  https://github.com/xianyi/OpenBLAS/archive/develop.zip \
+                   && wget https://github.com/xianyi/OpenBLAS/archive/develop.zip -nv \
                    && unzip develop.zip \
                    && rm develop.zip \
                    && cd  OpenBLAS-develop \
@@ -19,7 +19,8 @@ cuda7_0:
   requires:
     - buildbase
   build: |
-    RUN wget -nv http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-repo-ubuntu1404_7.0-28_amd64.deb
+    RUN wget -nv --trust-server-names \
+        https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-repo-ubuntu1404_7.0-28_amd64.deb
     RUN dpkg -i cuda-repo-ubuntu1404_7.0-28_amd64.deb \
      && apt-get update \
      && apt-get -y install cuda
