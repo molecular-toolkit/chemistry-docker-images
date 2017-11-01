@@ -18,6 +18,9 @@ _ALL_:
   - chem_notebook
   - pyscf
   - pyscf-1.3.1
+  - pyscf-build-1.3.1
+  - nwchem-build-6.6
+  - symmol_build
 
 ##################################################
 # Base image definitions

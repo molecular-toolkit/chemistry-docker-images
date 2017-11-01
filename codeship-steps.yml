@@ -1,9 +1,11 @@
+- name: pre-pull
+  service: docker-make
+  command: deployment/pull.sh ${CI_BRANCH}
+
 - name: build-all
   service: docker-make
   command: docker-make -f makefiles/DockerMake.yml --all
 
-- name: publish
+- name: push
   service: publisher
-  # matches tags that are valid PEP440 versions
-  tag: '^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)((a|rc|b)(0|[1-9]\d*))?$'
-  command: deployment/push.sh
+  command: deployment/push.sh ${CI_BRANCH}
