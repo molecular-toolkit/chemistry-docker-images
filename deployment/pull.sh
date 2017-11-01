@@ -9,8 +9,14 @@ fi
 
 imgs=$(cat makefiles/DockerMake.yml | shyaml get-values _ALL_)
 
+function echocmd() {
+   echo "> $@"
+   $@
+}
+
 for img in ${imgs}; do
-   docker pull chemdocker/${img}:${tag} || \
-   docker pull chemdocker/${img}:master || \
-   echo "Failed to pull cache for ${img}"
+   echocmd docker pull chemdocker/${img}:${tag} || \
+   echocmd docker pull chemdocker/${img}:master || \
+   echo " --> Failed to pull cache for ${img}"
+   echo
 done
