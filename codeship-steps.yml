@@ -1,6 +1,6 @@
 - name: pre-pull
   service: docker-make
-  command: deployment/pull.sh ${CI_BRANCH}
+  command: bash -c "deployment/pull.sh ${CI_BRANCH}"
 
 - name: build-all
   service: docker-make
@@ -8,4 +8,4 @@
 
 - name: push
   service: publisher
-  command: deployment/push.sh ${CI_BRANCH}
+  command: bash -c "deployment/push.sh ${CI_BRANCH}"
