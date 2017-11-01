@@ -14,9 +14,15 @@ function echocmd() {
    $@
 }
 
+function run-pull(){
+    echocmd docker pull chemdocker/$1 | \
+       tee -a pull.log | awk '/Pull/ && /Already exists/'
+    return ${PIPESTATUS[0]}
+}
+
+
 for img in ${imgs}; do
-   echocmd docker pull chemdocker/${img}:${tag} || \
-   echocmd docker pull chemdocker/${img}:master || \
+   run-pull ${img}:${tag} || run-pull ${img}:master || \
    echo " --> Failed to pull cache for ${img}"
    echo
 done
