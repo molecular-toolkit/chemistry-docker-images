@@ -4,7 +4,7 @@
 
 - name: build-all
   service: docker-make
-  command: bash -c "deployment/build.sh"
+  command: deployment/build.sh
 
 - name: push
   service: publisher
