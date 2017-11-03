@@ -1,2 +1,2 @@
-dockermake >= 0.6.0rc3
+dockermake >= 0.6.0rc4
 shyaml
