@@ -9,6 +9,7 @@ fi
 
 docker-make -f makefiles/DockerMake.yml \
             --repo docker.io/chemdocker \
-            --tag ${tag} \
-            --all \
+            --tag ${tag}                \
+            --all                       \
+            --cache-tag build           \
             --push --user ${DOCKERHUB_USER} --token ${DOCKERHUB_PASSWORD}

@@ -4,7 +4,9 @@
 
 - name: build-all
   service: docker-make
-  command: docker-make -f makefiles/DockerMake.yml --all --cache-repo chemdocker --cache-tag cache
+  command: docker-make -f makefiles/DockerMake.yml --all  \
+             --cache-repo chemdocker --cache-tag cache    \
+             --tag build
 
 - name: push
   service: publisher

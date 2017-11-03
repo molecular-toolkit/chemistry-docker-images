@@ -7,7 +7,7 @@ openblas:
     WORKDIR     /opt
     RUN         mkdir -p /opt/lib/ \
                    && wget https://github.com/xianyi/OpenBLAS/archive/develop.zip -nv \
-                   && unzip develop.zip \
+                   && unzip -q develop.zip \
                    && rm develop.zip \
                    && cd  OpenBLAS-develop \
                    && make -j3 TARGET=CORE2 INTERFACE64=1 NO_CBLAS=1 NO_LAPACK=1 NO_LAPACKE=1 libs shared \

@@ -12,6 +12,7 @@ _ALL_:
   - ambertools-16
   - opsin
   - opsin-2.1.0
+  - openblas
   - symmol
   - nwchem
   - nwchem-6.6
