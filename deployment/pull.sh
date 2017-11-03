@@ -20,7 +20,7 @@ function run-pull(){
     tag=$2;
 
     echocmd docker pull chemdocker/${img}:${tag} | \
-       tee -a pull.log | awk '/Pull/ && /Already exists/';
+       tee -a pull.log | egrep -i 'pull|already';
 
     success=${PIPESTATUS[0]}
     if [ "$success" -ne 0 ]; then
