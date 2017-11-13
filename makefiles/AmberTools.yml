@@ -1,0 +1,48 @@
+amber_base:
+  requires:
+    - python_deploy_base
+  build_directory: buildfiles/ambertools/
+  build: |
+    RUN apt-get update \
+     && apt-get install -qy \
+        gcc                                        \
+        gfortran                                   \
+     && cleanapt
+    ADD .amberrc /root
+    ADD install_ambertools.sh /opt
+    WORKDIR /opt
+    RUN chmod +x install_ambertools.sh
+
+ambertools-16.21.1:
+  requires:
+    - amber_base
+  build: |
+    RUN ./install_ambertools.sh -q --amber-version 16 --prefix /usr/local --non-conda
+    RUN echo 'source /usr/local/amber16/amber.sh' >> $HOME/.bashrc
+
+ambertools-17.3:
+  requires:
+   - amber_base
+  build: |
+    RUN ./install_ambertools.sh -q --amber-version 17 --prefix /usr/local --non-conda
+    RUN echo 'source /usr/local/amber17/amber.sh' >> $HOME/.bashrc
+
+# synonyms
+ambertools-16:
+  requires:
+    - ambertools-16.21.1
+
+ambertools-17:
+  requires:
+    - ambertools-17.3
+
+ambertools:
+  requires:
+    - ambertools-16.21.1
+
+
+blah:
+  requires:
+    - python_deploy_base
+  build: |
+    RUN kalsjdf

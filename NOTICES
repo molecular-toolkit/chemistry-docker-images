@@ -1,0 +1,9 @@
+This project incorporates source code from the following sources:
+
+      Amber-MD/install_ambertools
+--------------------------------
+Copyright (c) 2016 Amber Molecular Dynamics
+SOURCE CODE: makefiles/buildfiles/install_ambertools.sh
+DESCRIPTION: Web installer for ambertools from commit 09ecfb42cd01919e78f882b16a8c9ab21e9ff42f of
+WEBSITE: https://github.com/Amber-MD/install_ambertools
+LICENSE: makefiles/buildfiles/LICENSE
