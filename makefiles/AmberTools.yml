@@ -11,28 +11,27 @@ amber_base:
         libnetcdf-dev          \
      && cleanapt
     ADD .amberrc /root
-    ADD install_ambertools.sh /opt
-    WORKDIR /opt
-    RUN chmod +x install_ambertools.sh
+
 
 ambertools-16.21.1:
+  description: Ambertools release 16. Note that Nucleic Acid builder does not function in this image.
   requires:
     - amber_base
   build: |
     ENV AMBERHOME=/opt/amber16       \
         AMBERVERSION=16              \
         PYVER=3.6
-    RUN ./install_ambertools.sh -q --amber-version ${AMBERVERSION} --prefix $(dirname ${AMBERHOME}) --non-conda
-    ENV LD_LIBRARY_PATH=/usr/local/amber${AMBERVERSION}          \
-        PYTHONPATH=${AMBERHOME}/lib/python${PYVER}/site-packages \
-        PATH=${AMBERHOME}/bin:${PATH}
-
+    RUN conda install -qy -c AmberMD "ambertools>=16"
 
 
 ambertools-17.3:
   requires:
    - amber_base
+  build_directory: buildfiles/ambertools/
   build: |
+    ADD install_ambertools.sh /opt
+    WORKDIR /opt
+    RUN chmod +x install_ambertools.sh
     ENV AMBERHOME=/opt/amber17       \
         AMBERVERSION=17              \
         PYVER=3.6
