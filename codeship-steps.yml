@@ -9,3 +9,8 @@
 - name: push
   service: publisher
   command: bash -c "deployment/push.sh ${CI_BRANCH}"
+
+- name: push-latest
+  service: publisher
+  tag: '^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$'
+  command: bash -c "deployment/push.sh latest"

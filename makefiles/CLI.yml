@@ -9,26 +9,6 @@ opsin:
   requires:
     - opsin-2.1.0
 
-ambertools-16:
-  requires:
-    - python_deploy_base
-  build: |
-    RUN apt-get update \
-     && apt-get install --no-install-recommends -y \
-        gcc                                        \
-        gfortran                                   \
-        libfftw3-dev                               \
-        libgfortran3                               \
-        libnetcdf-dev                              \
-     && cleanapt
-    RUN python -c "print('name = molecular-design-toolkit-builder\ninstitution = Autodesk\ncity = San Francisco\nstate or province = CA\ncountry = USA')" > /root/.amberrc
-    RUN conda install -qy -c ambermd ambertools=16.21.1
-    ENV AMBERHOME=/opt/conda/
-
-ambertools:
-  requires:
-    - ambertools-16
-
 dssp:
   requires:
    - python_deploy_base
