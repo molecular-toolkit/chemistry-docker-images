@@ -4,9 +4,11 @@ amber_base:
   build_directory: buildfiles/ambertools/
   build: |
     RUN apt-get update \
-     && apt-get install -qy \
-        gcc                                        \
-        gfortran                                   \
+     && apt-get install -qy    \
+        gcc                    \
+        gfortran               \
+        libfftw3-dev           \
+        libnetcdf-dev          \
      && cleanapt
     ADD .amberrc /root
     ADD install_ambertools.sh /opt
@@ -17,15 +19,28 @@ ambertools-16.21.1:
   requires:
     - amber_base
   build: |
-    RUN ./install_ambertools.sh -q --amber-version 16 --prefix /usr/local --non-conda
-    RUN echo 'source /usr/local/amber16/amber.sh' >> $HOME/.bashrc
+    ENV AMBERHOME=/opt/amber16       \
+        AMBERVERSION=16              \
+        PYVER=3.6
+    RUN ./install_ambertools.sh -q --amber-version ${AMBERVERSION} --prefix $(dirname ${AMBERHOME}) --non-conda
+    ENV LD_LIBRARY_PATH=/usr/local/amber${AMBERVERSION}          \
+        PYTHONPATH=${AMBERHOME}/lib/python${PYVER}/site-packages \
+        PATH=${AMBERHOME}/bin:${PATH}
+
+
 
 ambertools-17.3:
   requires:
    - amber_base
   build: |
-    RUN ./install_ambertools.sh -q --amber-version 17 --prefix /usr/local --non-conda
-    RUN echo 'source /usr/local/amber17/amber.sh' >> $HOME/.bashrc
+    ENV AMBERHOME=/opt/amber17       \
+        AMBERVERSION=17              \
+        PYVER=3.6
+    RUN ./install_ambertools.sh -q --amber-version ${AMBERVERSION} --prefix $(dirname ${AMBERHOME}) --non-conda
+    ENV LD_LIBRARY_PATH=/usr/local/amber${AMBERVERSION}          \
+        PYTHONPATH=${AMBERHOME}/lib/python${PYVER}/site-packages \
+        PATH=${AMBERHOME}/bin:${PATH}
+
 
 # synonyms
 ambertools-16:
